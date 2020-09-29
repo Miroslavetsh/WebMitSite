@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;
-
-700&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -114,6 +111,11 @@ input:focus:-ms-input-placeholder {
 }
 
 /* IE 10+ */
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("../fonts/Ubuntu.woff");
+}
 
 body {
   font-family: "Ubuntu", sans-serif;
@@ -2609,10 +2611,10 @@ input:-ms-input-placeholder {
   }
 }
 
-.webp .register{ background: url(../img/bg--.webp) center no-repeat; }
+.webp .register { background: url(../img/bg--.webp) center no-repeat; }
 
-.webp .ways{ background: url(../img/bg-.webp) center no-repeat; }
+.webp .ways { background: url(../img/bg-.webp) center no-repeat; }
 
-.webp .actual{ background: url(../img/bg-.webp) center no-repeat; }
+.webp .actual { background: url(../img/bg-.webp) center no-repeat; }
 
-.webp .register{ background: url(../img/bg--.webp) center no-repeat; }
+.webp .register { background: url(../img/bg--.webp) center no-repeat; }
