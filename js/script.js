@@ -110,9 +110,7 @@ if (animItems.length > 0) {
 function animate(element) {
 	document.querySelector(element).classList.add('_active')
 }
-
-setTimeout("animate('.preview__suptitle')", 3900)
-setTimeout("animate('.preview__button')", 4500)
+setTimeout("animate('.preview__button')", 1700)
 
 // Hexagons animation
 

@@ -594,22 +594,8 @@ li {
 .preview__subtitle {
   margin-bottom: 60px;
   font-size: 40px;
-  opacity: 0;
-  -webkit-transform: translateY(50px);
-      -ms-transform: translateY(50px);
-          transform: translateY(50px);
   color: #fff;
   text-transform: uppercase;
-  -webkit-transition: all 1.5s ease 1.7s;
-  -o-transition: all 1.5s ease 1.7s;
-  transition: all 1.5s ease 1.7s;
-}
-
-.preview__subtitle._active {
-  opacity: 1;
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
 }
 
 .preview__motto {
@@ -619,13 +605,6 @@ li {
   font-size: 18px;
   color: #fff;
   text-transform: uppercase;
-  opacity: 0;
-  -webkit-transform: translateY(-40px);
-      -ms-transform: translateY(-40px);
-          transform: translateY(-40px);
-  -webkit-transition: all 1s ease 3s;
-  -o-transition: all 1s ease 3s;
-  transition: all 1s ease 3s;
 }
 
 .preview__motto:before {
@@ -639,13 +618,6 @@ li {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-}
-
-.preview__motto._active {
-  opacity: 1;
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
 }
 
 .preview__button {
@@ -746,9 +718,9 @@ li {
   font-size: 18px;
   text-transform: uppercase;
   opacity: 0;
-  -webkit-transition: all 1s ease 4s;
-  -o-transition: all 1s ease 4s;
-  transition: all 1s ease 4s;
+  -webkit-transition: all 1s ease 2.5s;
+  -o-transition: all 1s ease 2.5s;
+  transition: all 1s ease 2.5s;
   -webkit-animation: whitePulse 8s linear 5s infinite;
           animation: whitePulse 8s linear 5s infinite;
 }
