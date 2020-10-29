@@ -15,7 +15,7 @@ $(function() {
 	$('body').toggleClass('lock')
 })
 
-	// WEBP format 
+	// WEBP format test
 	
 	function testWebP(callback) {
 
@@ -26,7 +26,7 @@ $(function() {
 		webP.src = "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
 	}
 
-	//Slider
+	// Slider
 
 	$('.actual__slider').slick({
 		slidesToShow: 3,
@@ -35,25 +35,74 @@ $(function() {
 		nextArrow: '<span class="actual__button actual__button--next"></span>',
 		dots: true,
 		infinite: false,
+		responsive: [
+			{
+				breakpoint: 1370,
+				settings: {
+					arrows: false,
+				}
+			},
+			{
+				breakpoint: 1170,
+				settings: {
+					arrows: false,
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				}
+			},
+			{
+				breakpoint: 840,
+				settings: {
+					arrows: true,
+					slidesToShow: 1,
+					slidesToScroll: 1,
+
+				}
+			},
+			{
+				breakpoint: 640,
+				settings: {
+					arrows: false,
+					slidesToShow: 1,
+					slidesToScroll: 1,
+
+				}
+			}
+		]
 	})
+
+	// Searching
+
+	if (document.querySelector('#hexaSearch')) {
+		const sharp = $('#hexaSearch'),
+		      search = $('.searching'),
+		      articles = $('.articles')
+
+		sharp.on('click', function () {
+			sharp.toggleClass('_active')
+			search.toggleClass('_active')
+			articles.toggleClass('_active')
+		})
+	}
 
 })
 
-//ScrollToTop
+// ScrollToTop
 
+if (document.querySelector('.scroll__up-path')) {
 	const scrollOffset = 400,
 		  scrollUp = document.querySelector('.scroll__up'),
 		  scrollUpSvgPath = document.querySelector('.scroll__up-path'),
 		  offsetTop = () => window.pageYOffset || document.documentElement.scrollTop;
-    
-    const updatePathColor = () => {
-    	const height = document.documentElement.scrollHeight - window.innerHeight,
-    		  R = (offsetTop() * height) / 50000,
-    		  G = Math.abs(offsetTop() - height) / 100,
-    		  B = Math.abs(offsetTop() - height) / 100;
 
-    	scrollUpSvgPath.style.fill = `rgb(${R}, ${G}, ${B})`
-    }
+	const updatePathColor = () => {
+		const height = document.documentElement.scrollHeight - window.innerHeight,
+			  R = (offsetTop() * height) / 50000,
+			  G = Math.abs(offsetTop() - height) / 100,
+			  B = Math.abs(offsetTop() - height) / 100;
+
+		scrollUpSvgPath.style.fill = `rgb(${R}, ${G}, ${B})`
+	}
 
 	window.addEventListener('scroll', () => {
 		updatePathColor()
@@ -71,82 +120,165 @@ $(function() {
 			behavior: 'smooth'	
 		})
 	})
+}
 
+// Animations
 
-//Animations
+if (document.querySelectorAll('._anim-items')) {
+	const animItems = document.querySelectorAll('._anim-items')
 
-const animItems = document.querySelectorAll('._anim-items')
+	if (animItems.length > 0) {
+		window.addEventListener('scroll', animOnscroll);
 
-if (animItems.length > 0) {
-	window.addEventListener('scroll', animOnscroll);
+		function animOnscroll(params) {
+			for (let i = 0; i < animItems.length; i++) {
+				const animItem = animItems[i],
+					  animItemHeight = animItem.offsetHeight,
+					  animItemOffset = offset(animItem).top,
+					  animStart = 4;
 
-	function animOnscroll(params) {
-		for (let i = 0; i < animItems.length; i++) {
-			const animItem = animItems[i],
-				  animItemHeight = animItem.offsetHeight,
-				  animItemOffset = offset(animItem).top,
-				  animStart = 4;
+				let animItemPoint = window.innerHeight - animItemHeight / animStart;
+				if(animItemHeight > window.innerHeight) {
+					animItemPoint = window.innerHeight - window.innerHeight / animStart;
+				}
 
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if(animItemHeight > window.innerHeight) {
-				animItemPoint = window.innerHeight - window.innerHeight / animStart;
-			}
-
-			if((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
-				animItem.classList.add('_active')
-			}else {
-				if(!animItem.classList.contains('_anim-no-hide')){
-					animItem.classList.remove('_active')
+				if((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
+					animItem.classList.add('_active')
+				}else {
+					if(!animItem.classList.contains('_anim-no-hide')){
+						animItem.classList.remove('_active')
+					}
 				}
 			}
 		}
+
+		animOnscroll();
 	}
-
-	animOnscroll();
 }
 
-//Button animation
+// Preview button animation
 
-function animate(element) {
-	document.querySelector(element).classList.add('_active')
+if (document.querySelector('.preview__button')) {
+	function animate(element) {
+		document.querySelector(element).classList.add('_active')
+	}
+	setTimeout("animate('.preview__button')", 1700)
 }
-setTimeout("animate('.preview__button')", 1700)
 
 // Hexagons animation
 
-const hexaItems = document.querySelectorAll('.hexa._anim-items')
+if (document.querySelectorAll('.hexa._anim-items')) {
+	const hexaItems = document.querySelectorAll('.hexa._anim-items')
 
-if (hexaItems.length > 0) {
-	window.addEventListener('scroll', animHexaOnscroll);
+	if (hexaItems.length > 0) {
+		window.addEventListener('scroll', animHexaOnscroll);
 
-	function animHexaOnscroll(params) {
-		for (let i = 0; i < hexaItems.length; i++) {
-			const hexaItem = hexaItems[i]
-
-			if((pageYOffset > 400)) {
-				hexaItem.classList.add('_active')
-			}else {
-				if(!hexaItem.classList.contains('_anim-no-hide')){
-					hexaItem.classList.remove('_active')
+		function animHexaOnscroll(params) {
+			for (let i = 0; i < hexaItems.length; i++) {
+				const hexaItem = hexaItems[i]
+				
+				if((pageYOffset > 400)) {
+					hexaItem.classList.add('_active')
 				}
 			}
 		}
-	}
 
-	animHexaOnscroll();
+		animHexaOnscroll();
+	}
 }
 
-// Fullpage
+// Preview fullscreen and parallax
 
-let more = document.querySelector('.preview__button')
+if (document.querySelector('.preview__button')) {
+	let more = document.querySelector('.preview__button')
 
-more.addEventListener('click', function(e) {
-    e.preventDefault();
+	more.addEventListener('click', function(e) {
+	    e.preventDefault();
 
-    document.querySelector("#ways").scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
+	    document.querySelector("#ways").scrollIntoView({
+	      behavior: 'smooth',
+	      block: 'start'
+	    })
+	})
+}
+
+// Admin create List
+
+if (document.querySelector('#adminInput')) {
+	const input = document.querySelector('#adminInput'),
+		  button = document.querySelector('#adminButton'),
+		  list = document.querySelector('#adminList')
+
+	button.addEventListener('click', e => {
+		e.preventDefault()
+		if (input.value === '') return
+		createDeleteElem(input.value)
+	})
+
+	function createDeleteElem(value) {
+		const li = document.createElement('li'),
+			  del = document.createElement('button')
+
+		li.classList.add('conferencecreate__topic')
+		li.textContent = input.value
+
+		list.appendChild(li)
+
+		del.classList.add('conferencecreate__delete')
+		del.textContent = '-'
+
+		li.appendChild(del)
+
+		del.addEventListener('click', e => {
+			e.preventDefault()
+
+			list.removeChild(li)
+		})
+	}
+}
+
+// Topic Create List
+
+if (document.querySelector('#conferenceInput')) {
+	const input = document.querySelector('#conferenceInput'),
+		  button = document.querySelector('#conferenceButton'),
+		  list = document.querySelector('#conferenceList')
+
+	button.addEventListener('click', e => {
+		e.preventDefault()
+
+		if (input.value === '') return
+		createDeleteElem(input.value)
+	})
+
+	function createDeleteElem(value) {
+		const li = document.createElement('li'),
+			  del = document.createElement('button')
+
+		li.classList.add('conferencecreate__topic')
+		li.textContent = input.value
+
+		list.appendChild(li)
+
+		del.classList.add('conferencecreate__delete')
+		del.textContent = '-'
+
+		li.appendChild(del)
+
+		del.addEventListener('click', e => {
+			e.preventDefault()
+
+			list.removeChild(li)
+		})
+	}
+}
+
+// Option difference
+
+const option = document.querySelector('.signup__difference')
+
+option.addEventListener('select', () =>{
+	console.log(option.selected)
 })
 
 // Get Offset
