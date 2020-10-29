@@ -275,11 +275,11 @@ if (document.querySelector('#conferenceInput')) {
 
 // Option difference
 
-// const option = document.querySelector('.signup__difference')
+if (document.querySelector('.signup__difference')) {
+	const option = document.querySelector('.signup__difference')
 
-// option.addEventListener('select', () =>{
-// 	console.log(option.selected)
-// })
+	option.addEvent
+}
 
 // Get Offset
 

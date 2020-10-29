@@ -2787,8 +2787,12 @@ input:-ms-input-placeholder {
       flex-wrap: wrap;
 }
 
-.signin .form__blck--dbl input,
 .signin .form__blck--dbl select {
+  min-width: 255px;
+  width: 100%;
+}
+
+.signin .form__blck--dbl input {
   width: 48%;
 }
 
@@ -2830,14 +2834,13 @@ input:-ms-input-placeholder {
 }
 
 .signup__select {
-  width: 50%;
   position: relative;
 }
 
 .signup__select:after {
   position: absolute;
   top: 40%;
-  right: 20px;
+  right: 30px;
   content: '';
   width: 0;
   height: 0;
@@ -4142,6 +4145,7 @@ input:-ms-input-placeholder {
 
   .signin .form__blck--dbl input,
   .signin .form__blck--dbl select {
+    max-width: 255px;
     width: 100%;
   }
 
@@ -4230,6 +4234,22 @@ input:-ms-input-placeholder {
     margin: 20px 0;
     width: 100%;
     font-size: 14px;
+  }
+
+  .signin .form__blck--dbl {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .signin .form__blck--dbl input,
+  .signin .form__blck--dbl select {
+    min-width: 320px;
   }
 }
 
@@ -4405,6 +4425,26 @@ input:-ms-input-placeholder {
 
   .footer__logo {
     display: none;
+  }
+
+  .signin .form__blck--dbl {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .signin .form__blck--dbl input,
+  .signin .form__blck--dbl select {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    max-width: 320px;
+    width: 100%;
+    min-width: 255px;
   }
 
   .conferencecreate .form__blck--todo button.conferencecreate__button {
