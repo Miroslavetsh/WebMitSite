@@ -144,6 +144,7 @@ li {
 
 input:focus,
 select:focus,
+textarea:focus,
 button:focus {
   border: 1px solid #03f;
 }
@@ -1174,7 +1175,7 @@ input:-ms-input-placeholder {
 .ways {
   background: url("../img/bg-.jpg") center no-repeat;
   background-size: cover;
-  padding-top: 80px;
+  padding-top: 50px;
   padding-bottom: 70px;
   position: relative;
 }
@@ -1198,6 +1199,10 @@ input:-ms-input-placeholder {
           justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.ways__cards:last-child {
+  margin-top: -20px;
 }
 
 .ways__item {
@@ -2767,8 +2772,8 @@ input:-ms-input-placeholder {
   margin-bottom: 80px;
 }
 
-.signin .register__form input {
-  padding-left: 25px;
+.signin__input {
+  padding-left: 40px;
 }
 
 .signin .form__blck--dbl {
