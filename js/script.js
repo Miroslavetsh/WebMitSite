@@ -197,7 +197,7 @@ if (document.querySelector('.preview__button')) {
 
 	    document.querySelector("#ways").scrollIntoView({
 	      behavior: 'smooth',
-	      block: 'start'
+	      block: 'center'
 	    })
 	})
 }
