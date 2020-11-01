@@ -190,15 +190,27 @@ if (document.querySelectorAll('.hexa._anim-items')) {
 // Preview fullscreen and parallax
 
 if (document.querySelector('.preview__button')) {
+
 	let more = document.querySelector('.preview__button')
 
 	more.addEventListener('click', function(e) {
 	    e.preventDefault();
 
-	    document.querySelector("#ways").scrollIntoView({
-	      behavior: 'smooth',
-	      block: 'center'
-	    })
+	    if (window.innerWidth <= 1050 ) {
+
+	    	document.querySelector("#ways").scrollIntoView({
+		      behavior: 'smooth',
+		      block: 'start'
+		    })
+			
+		} else {
+
+			document.querySelector("#ways").scrollIntoView({
+		      behavior: 'smooth',
+		      block: 'center'
+		    })
+
+		}
 	})
 }
 
