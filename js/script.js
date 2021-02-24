@@ -124,7 +124,7 @@ if (document.querySelector('.scroll__up-path')) {
 
 // Animations
 
-if (document.querySelectorAll('._anim-items')) {
+if (document.querySelector('._anim-items')) {
 	const animItems = document.querySelectorAll('._anim-items')
 
 	if (animItems.length > 0) {
@@ -196,22 +196,71 @@ if (document.querySelector('.preview__button')) {
 	more.addEventListener('click', function(e) {
 	    e.preventDefault();
 
-	    if (window.innerWidth <= 1050 ) {
-
-	    	document.querySelector("#ways").scrollIntoView({
-		      behavior: 'smooth',
-		      block: 'start'
-		    })
-			
-		} else {
-
-			document.querySelector("#ways").scrollIntoView({
-		      behavior: 'smooth',
-		      block: 'center'
-		    })
-
-		}
+		document.querySelector("#footer").scrollIntoView({
+	      behavior: 'smooth',
+	      block: 'center'
+	    })
+		
 	})
+}
+
+if (document.querySelector('#articleDelete')) {
+	const button = document.querySelector('#articleDelete')
+
+	button.addEventListener('click', e => {
+		e.preventDefault()
+		
+		confirm('Ви дійсно хочете видалити статтю?')
+	})
+}
+                          
+// Event dates and descriptions input list
+
+if (document.querySelector('#eventsDateInput')) {
+    const dateInput = document.querySelector('#eventsDateInput'),
+          descInput = document.querySelector('#eventsDescInput'),
+          button = document.querySelector('#eventsButton'),
+          list = document.querySelector('#eventsList')
+
+    button.addEventListener('click', e => {
+        e.preventDefault()
+
+        const value = descInput.value.trim()
+        if (value === '') return
+        createDeleteElem(value)
+        input.value = ''
+    })
+
+    function createDeleteElem(value) {
+        const li = document.createElement('li'),
+              del = document.createElement('button'),
+              dateImp = document.createElement('input'),
+              descImp = document.createElement('input')
+
+        li.classList.add('conferencecreate__topic')
+
+        list.appendChild(li)
+
+        del.classList.add('conferencecreate__delete')
+        del.textContent = '-'
+
+        dateImp.value = dateInput.value
+        dateImp.setAttribute('name', 'EventDates')
+        dateImp.setAttribute('type', 'date')
+
+        descImp.value = descInput.value.trim()
+        descImp.setAttribute('name', 'EventDescriptions')
+        descImp.setAttribute('placeholder', 'Опис події')
+
+        li.appendChild(dateImp)
+        li.appendChild(descImp)
+        li.appendChild(del)
+
+        del.addEventListener('click', e => {
+            e.preventDefault()
+            list.removeChild(li)
+        })
+    }
 }
 
 // Admin create List
@@ -223,21 +272,28 @@ if (document.querySelector('#adminInput')) {
 
 	button.addEventListener('click', e => {
 		e.preventDefault()
+
 		if (input.value === '') return
 		createDeleteElem(input.value)
+		input.value = ''
 	})
 
 	function createDeleteElem(value) {
 		const li = document.createElement('li'),
-			  del = document.createElement('button')
+			  del = document.createElement('button'),
+			  imp = document.createElement('input')
 
 		li.classList.add('conferencecreate__topic')
-		li.textContent = input.value
 
 		list.appendChild(li)
 
 		del.classList.add('conferencecreate__delete')
 		del.textContent = '-'
+
+		imp.value = input.value
+		imp.setAttribute('name', 'Authors')
+
+		li.appendChild(imp)
 
 		li.appendChild(del)
 
@@ -261,19 +317,25 @@ if (document.querySelector('#conferenceInput')) {
 
 		if (input.value === '') return
 		createDeleteElem(input.value)
+		input.value = ''
 	})
 
 	function createDeleteElem(value) {
 		const li = document.createElement('li'),
-			  del = document.createElement('button')
+			  del = document.createElement('button'),
+			  imp = document.createElement('input')
 
 		li.classList.add('conferencecreate__topic')
-		li.textContent = input.value
 
 		list.appendChild(li)
 
 		del.classList.add('conferencecreate__delete')
 		del.textContent = '-'
+
+		imp.value = input.value
+		imp.setAttribute('name', 'Topics')
+
+		li.appendChild(imp)
 
 		li.appendChild(del)
 
@@ -285,12 +347,150 @@ if (document.querySelector('#conferenceInput')) {
 	}
 }
 
-// Option difference
+// Choose file at the article creating
 
-if (document.querySelector('.signup__difference')) {
-	const option = document.querySelector('.signup__difference')
+if (document.querySelector('#articleFile')) {
+	const fileTypeInput = document.querySelector('#articleFile'),
+	 	  labelForInput = document.querySelector('label[for="articleFile"]')
 
-	option.addEvent
+	fileTypeInput.addEventListener('change', e => {
+
+		if( this.files && this.files.length > 1 ) {
+		    fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+		}
+	    else {
+	      fileName = e.target.value.split( "\\" ).pop()
+	    }
+	    if( fileName ) {
+      		let newName = fileName.slice(0, 17),
+      			tripleDots = '...'
+
+      		console.log(newName.length)
+
+			if (fileName.length <= 17) {
+				labelForInput.innerHTML = newName
+			}
+			else {
+				labelForInput.innerHTML = newName + tripleDots
+			}
+	    }
+	})
+}
+
+// Validation window
+
+if(document.querySelector('.validation-summary-errors')) {
+	const validationBlock = document.querySelector('.validation-summary-errors')
+
+	window.addEventListener('click', () => {
+		validationBlock.style = "opacity: 0;visibility: hidden;top: -100%;"
+	})
+}
+
+// Popup
+
+if (document.querySelectorAll('.popup__link')) {
+	const popupLinks = document.querySelectorAll('.popup__link')
+	const body = document.querySelector('body')
+	const lockPadding = document.querySelectorAll('.lock__padding') // Only for absolute objects
+
+	let unlock = true
+
+	const timeout = 400
+
+	if (popupLinks.length > 0) {
+		for (let i = 0; i < popupLinks.length; i++) {
+			const popupLink = popupLinks[i]
+			popupLink.addEventListener('click', function(event) {
+				event.preventDefault()
+
+				const popupName = popupLink.getAttribute('href').replace('#', '')
+				const currentPopup = document.querySelector(`#${popupName}`)
+				popupOpen(currentPopup)
+			})
+		}
+	}
+
+	const popupCloseIcons = document.querySelectorAll('.close__popup')
+	if (popupCloseIcons.length > 0) {
+		for (let i = 0; i < popupCloseIcons.length; i++) {
+			const popupCloseIcon = popupCloseIcons[i]
+			popupCloseIcon.addEventListener('click', function(event) {
+				event.preventDefault()
+
+				popupClose(popupCloseIcon.closest('.popup'))
+			})
+		}
+	}
+
+	function popupOpen(currentPopup) {
+		if (currentPopup && unlock) {
+			const popupActive = document.querySelector('.popup._active')
+			if (popupActive) {
+				popupClose(popupActive, false)
+			}else {
+				bodyLock()
+			}
+			currentPopup.classList.add('_active')
+			currentPopup.addEventListener('click', function(e) {
+				if(!e.target.closest('.popup__body')) {
+					popupClose(e.target.closest('.popup'))
+				}
+			})
+		}
+		
+	}
+
+	function popupClose(popupActive, doUnlock = true) {
+		if (unlock) {
+			popupActive.classList.remove('_active')
+			if (doUnlock) {
+				bodyUnlock()
+			}
+		}
+	}
+
+	function bodyLock() {
+		const lockPaddingValue = window.innerWidth - document.querySelector('.container').offsetWidth + 'px'
+		if (lockPadding.length > 0) {
+			for (let i = 0; i < lockPadding.length; i++) {
+				const el = lockPadding[i]
+				el.style.paddingRight = lockPaddingValue + 'px'
+			}
+		}
+		body.style.paddingRight = lockPaddingValue + 'px'
+		body.classList.add('_lock')
+
+		unlock = false
+		setTimeout(function() {
+			unlock = true
+		}, timeout)
+	}
+
+	function bodyUnlock() {
+		setTimeout(function() {
+			if (lockPadding.length > 0) {
+				for (let i = 0; i < lockPadding.length; i++) {
+					const el = lockPadding[i]
+					el.style.paddingRight = '0px'
+				}
+			}
+			body.style.paddingRight = '0px'
+			body.classList.remove('_lock')
+		}, timeout)
+
+		unlock = false 
+		setTimeout(function() {
+			unlock = true
+		}, timeout)
+	}
+
+	document.addEventListener('keydown', function (e) {
+		if (e.which === 27) {
+			const popupActive = document.querySelector('.popup._active')
+			popupClose(popupActive)
+		}
+	})
 }
 
 // Get Offset
